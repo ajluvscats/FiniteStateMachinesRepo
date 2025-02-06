@@ -29,7 +29,7 @@ public class State
     public State(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
     {
         npc = _npc;
-        _agent = _agent;
+        agent = _agent;
         anim = _anim;
         stage = EVENT.ENTER;
         player = _player;
@@ -61,7 +61,7 @@ public class Idle : State
 
     public override void Enter()
     {
-        currentIndex = 0;
+       
         anim.SetTrigger("isIdle");
         base.Enter();
     }
@@ -73,7 +73,7 @@ public class Idle : State
             nextState = new Patrol(npc, agent, anim, player);
             stage = EVENT.EXIT;
         }
-        base.Update();
+       // base.Update();
     }
 
     public override void Exit()
@@ -85,7 +85,7 @@ public class Idle : State
 }
 public class Patrol: State
 {
-    int currentIndez = -1;
+    int currentIndex = -1;
 
     public Patrol(GameObject _npc, NavMeshAgent _agent, Animator _anim, Transform _player)
                : base(_npc, _agent, _anim, _player)
@@ -97,6 +97,7 @@ public class Patrol: State
 
     public override void Enter()
     {
+        currentIndex = 0;
         anim.SetTrigger("isWalking");
         base.Enter();
     }
@@ -111,7 +112,7 @@ public class Patrol: State
 
             agent.SetDestination(GameEnvironement.Singleton.Checkpoints[currentIndex].transform.position);
         }
-        base.Update();
+        //base.Update();
     }
     public override void Exit()
     {
